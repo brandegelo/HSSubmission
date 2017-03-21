@@ -1,3 +1,10 @@
+// ----
+// Sass (v3.4.21)
+// Compass (v1.0.3)
+// ----
+
+//START SCSS RESET SECTION
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
@@ -23,14 +30,18 @@ blockquote, q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after {
-  content: "";
-  content: none;
+blockquote {
+  &:before, &:after {
+    content: "";
+    content: none;
+  }
 }
 
-q:before, q:after {
-  content: "";
-  content: none;
+q {
+  &:before, &:after {
+    content: "";
+    content: none;
+  }
 }
 
 table {
@@ -38,12 +49,41 @@ table {
   border-spacing: 0;
 }
 
+//END SCSS RESET SECTION
+
+$font-stack: Roboto, sans-serif;
+$number-circle-size: 29px;
+$number-circle-color: #9BCA3C;
+$item-price-color: #CCCCCC;
+$entire-top: 16px;
+$top-centering: 7px;
+$list-item-margin: 10px;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin hotschedules-border {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #CCCCCC;
+}
+
+@mixin border-all($width, $style, $color) {
+  border-width: $width;
+  border-style: $style;
+  border-color: $color;
+}
+
 body {
-  font: 100% Roboto, sans-serif;
+  font: 100% $font-stack;
 }
 
 .listTitle {
-  font-family: Roboto, sans-serif;
+  font-family: $font-stack;
   position: relative;
   top: 0px;
   font-size: 16px;
@@ -55,22 +95,21 @@ body {
   border-color: black;
   border-width: 3px;
   display: inline-block;
-  margin: 10px;
-  margin-left: 30px;
+  margin: $list-item-margin;
+  margin-left:30px;
   margin-bottom: 20px;
-  padding-top: 10px;
+  padding-top: $list-item-margin;
   padding-bottom: 12px;
-  border-bottom: 10px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #CCCCCC;
+  border-bottom: $list-item-margin;
+
+  @include border-all(1px, solid, #CCCCCC);
 }
 
 .topSalesList {
   position: relative;
-  top: 16px;
+  top: $entire-top;
   display: inline-block;
-  margin-right: 10px;
+  margin-right: $list-item-margin;
 }
 
 .topSalesList li {
@@ -81,17 +120,21 @@ body {
   counter-increment: step-counter;
 }
 
+.topSalesList li::firstchild {
+  counter-reset:index {}
+}
+
 .topSalesList .itemNumber {
   content: counter(step-counter);
-  margin-top: 7px;
+  margin-top: $top-centering;
 }
 
 .topSalesList .itemContent {
   width: 100%;
-  padding-top: 7px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #CCCCCC;
+  padding-top: $top-centering;
+
+  @include hotschedules-border;
+
   border-top-style: solid;
 }
 
@@ -105,12 +148,11 @@ body {
   width: 31px;
   height: 27px;
   line-height: 27px;
-  -webkit-border-radius: 27px;
-  -moz-border-radius: 27px;
-  -ms-border-radius: 27px;
-  border-radius: 27px;
-  background: #9BCA3C;
-  margin-right: 10px;
+
+  @include border-radius(27px);
+
+  background: $number-circle-color;
+  margin-right: $list-item-margin;
   margin-left: 10px;
   color: white;
   font-size: 18px;
